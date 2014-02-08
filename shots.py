@@ -68,12 +68,13 @@ def getall():
 
 	allsnaps = []
 	for snap in snaps:
-		# Download a snap
-		media = s.get_media(snap['id'])
-		newFile = open('./static/' + snap['id'] + ".jpeg", "wb")
-		allsnaps.append({'file':snap['id'] + ".jpeg"})
-		newFileByteArray = bytearray(media)
-		newFile.write(newFileByteArray)
+                if snap['id'][-1] != 's' and snap['status'] != 2:
+                        # Download a snap
+                        media = s.get_media(snap['id'])
+                        newFile = open('./static/' + snap['id'] + ".jpeg", "wb")
+                        allsnaps.append({'file':snap['id'] + ".jpeg"})
+                        newFileByteArray = bytearray(media)
+                        newFile.write(newFileByteArray)
 
 	return Response(json.dumps(allsnaps), mimetype='text/javascript')
 
