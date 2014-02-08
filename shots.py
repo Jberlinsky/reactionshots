@@ -5,6 +5,8 @@ requires:
 pycrypto==2.6.1
 requests==2.0.1
 
+written by Cole Kushner and Jason Berlinsky
+
 """
 import os
 from flask import *
@@ -142,7 +144,7 @@ def getbests():
 			return Response(json.dumps(s.get_updates()['updates_response']['added_friends']), mimetype='text/javascript')
 	if amount == 'bests':
 			return Response(json.dumps(s.get_updates()['updates_response']['bests']), mimetype='text/javascript')
-	
+
 #clear snapchat history
 @app.route("/clear")
 def clear():
