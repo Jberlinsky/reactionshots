@@ -51,6 +51,7 @@ def send(filetype):
 	s.login(username, password)
         app.logger.debug('3')
 
+        app.logger.debug(request.form)
         app.logger.debug(request.files)
         app.logger.debug('4')
 
