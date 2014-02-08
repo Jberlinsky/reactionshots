@@ -82,14 +82,21 @@ def getall():
                                 5: None,
                                 6: None
                         }[reportedMediaType]
-                        if fileType == 'image' or fileType == 'video':
-                                print fileType
+                        if fileType == 'image':
                                 allsnaps.append({
                                         'file':snap['id'] + ".jpeg",
                                         'senderName':snap['sender'],
                                         'fileType': fileType})
                                 newFileByteArray = bytearray(media)
                                 newFile.write(newFileByteArray)
+                        if fileType == 'video':
+                                allsnaps.append({
+                                        'file':snap['id'] + ".mp4",
+                                        'senderName':snap['sender'],
+                                        'fileType': fileType})
+                                newFileByteArray = bytearray(media)
+                                newFile.write(newFileByteArray)
+
 
 	return Response(json.dumps(allsnaps), mimetype='text/javascript')
 
