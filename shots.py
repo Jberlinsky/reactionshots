@@ -58,9 +58,10 @@ def send():
 @app.route("/getall", methods=['GET'])
 def getall():
 	#login
-	data = request.get_json()
+	username = request.args.get('username', '')
+	password = request.args.get('password', '')
 	s = Snapchat()
-	s.login(data['username'],data['password'])
+	s.login(username, password)
 
 	#get all snaps for the user 
 	snaps = s.get_snaps()
