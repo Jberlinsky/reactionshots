@@ -42,15 +42,15 @@ def login():
 #send a snapchat
 @app.route("/send/<filetype>", methods=['POST'])
 def send(filetype):
-        username = request.args.get('username', '')
-        password = request.args.get('password', '')
+        username = request.form['username']
+        password = request.form['password']
 
 	s = Snapchat()
 	s.login(username, password)
 
-        app.logger.debug(request.args.get('file', ''))
+        app.logger.debug(request.form['file'])
 
-	snap = request.files['file']
+	snap = request.form['file']
         extension = ".jpg"
         if filetype == 'video':
                 extension = '.mp4'
@@ -74,7 +74,7 @@ def send(filetype):
 
         app.logger.debug('Notifying recipient')
 
-	s.send(media_id, request.args.get('recipient', ''))
+	s.send(media_id, request.form['recipient'])
 
         app.logger.debug('Done!')
 
