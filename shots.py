@@ -35,9 +35,8 @@ def begin():
 #login verification 
 @app.route("/login", methods=['POST', 'GET'])
 def login():
-	data = request.get_json()
 	s = Snapchat()
-	s.login(data['username'],data['password'])
+	s.login(request.form['username'],request.form['password'])
 	if s.logged_in == False:
 		return {"success":False};
 	return {"success":True};
