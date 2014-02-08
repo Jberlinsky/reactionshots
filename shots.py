@@ -42,12 +42,11 @@ def login():
 #send a snapchat
 @app.route("/send/<filetype>", methods=['POST'])
 def send(filetype):
-	data = request.get_json()
-
-        app.logger.warning("DATA PROVIDED: " + data)
+        username = request.args.get('username', '')
+        password = request.args.get('password', '')
 
 	s = Snapchat()
-	s.login(data['username'],data['password'])
+	s.login(username, password)
 
         app.logger.debug('Logged in')
 
@@ -75,7 +74,7 @@ def send(filetype):
 
         app.logger.debug('Notifying recipient')
 
-	s.send(media_id, data['recipient'])
+	s.send(media_id, request.args.get('recipient', ''))
 
         app.logger.debug('Done!')
 
