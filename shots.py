@@ -74,9 +74,6 @@ def send(filetype):
 	#upload file to snapchat
 	if (filetype == "image"):
 		snapformat = Snapchat.MEDIA_IMAGE
-                #new_filename = 'uploaded_file.jpg'
-                #call(['convert', filename, new_filename])
-                #filename = new_filename
 	if (filetype == "video"):
 		snapformat = Snapchat.MEDIA_VIDEO
 
