@@ -47,7 +47,7 @@ def login():
         resp = 'No'
         if s.logged_in:
                 resp = 'Yes'
-        return Response(json.dumps({"success":resp}), mimetype='text/javascript')
+        return Response(json.dumps([resp]), mimetype='text/javascript')
 
 #send a snapchat
 @app.route("/send/<filetype>", methods=['POST'])
