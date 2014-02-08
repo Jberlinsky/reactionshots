@@ -44,7 +44,7 @@ def login():
         app.logger.debug(username + '/' + password)
 	s.login(username, password)
         app.logger.debug('returning')
-        return Response(json.dumps({"success":s.logged_in}))
+        return Response(json.dumps({"success":s.logged_in}), mimetype='text/javascript')
 
 #send a snapchat
 @app.route("/send/<filetype>", methods=['POST'])
