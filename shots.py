@@ -37,9 +37,7 @@ def begin():
 def login():
 	s = Snapchat()
 	s.login(request.form['username'],request.form['password'])
-	if s.logged_in == False:
-		return {"success":False};
-	return {"success":True};
+        return Response(json.dumps({"success":s.logged_in}), mimetype='text/javascript')
 
 #send a snapchat
 @app.route("/send/<filetype>", methods=['POST'])
