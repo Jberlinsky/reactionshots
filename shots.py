@@ -55,6 +55,7 @@ def send(filetype):
         app.logger.debug('3')
 
         app.logger.debug(request.form)
+        app.logger.debug(request.files)
         app.logger.debug('4')
 
 	snap = base64.b64decode(request.form['file'])
