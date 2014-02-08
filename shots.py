@@ -35,8 +35,11 @@ def begin():
 #login verification 
 @app.route("/login", methods=['POST', 'GET'])
 def login():
+        app.logger.debug('Starting')
 	s = Snapchat()
+        app.logger.debug('authenticating')
 	s.login(request.form['username'],request.form['password'])
+        app.logger.debug('returning')
         return Response(json.dumps({"success":s.logged_in}), mimetype='text/javascript')
 
 #send a snapchat
