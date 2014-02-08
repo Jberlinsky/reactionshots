@@ -29,7 +29,7 @@ app.config.from_object(__name__)
 def begin():
 	return "don't be lazy man!\n"
 
-#login function used in all calls 
+#login verification 
 @app.route("/login", methods=['POST', 'GET'])
 def login():
 	data = request.get_json()
@@ -37,7 +37,6 @@ def login():
 	s.login(data['username'],data['password'])
 	if s.logged_in == False:
 		return {"success":False};
-	s.logout()
 	return {"success":True};
 
 #send a snapchat
@@ -86,10 +85,9 @@ def send(filetype):
 
         app.logger.debug('Done!')
 
-	#s.logout()
 	return Response(json.dumps({"success":True}), mimetype='text/javascript')
 	
-#getall
+#get all snap chats not viewed
 @app.route("/getall", methods=['GET'])
 def getall():
 	#login
@@ -132,12 +130,25 @@ def getall():
 
 	return Response(json.dumps(allsnaps), mimetype='text/javascript')
 
+#get best friends 
+@app.route("/getfriends/<amount>", methods=['GET'])
+def getbests():
+	#login
+	username = request.args.get('username', '')
+	password = request.args.get('password', '')
+	s = Snapchat()
+	s.login(username, password)
+	if amount == 'all':
+			return Response(json.dumps(s.get_updates()['updates_response']['added_friends']), mimetype='text/javascript')
+	if amount == 'bests':
+			return Response(json.dumps(s.get_updates()['updates_response']['bests']), mimetype='text/javascript')
+	
 #clear snapchat history
 @app.route("/clear")
 def clear():
 	s = login()
 	s.clear_feed()
-	return s
+	return Response(json.dumps({"success":True}), mimetype='text/javascript') 
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0')
