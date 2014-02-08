@@ -72,7 +72,7 @@ def getall():
                         # Download a snap
                         media = s.get_media(snap['id'])
                         newFile = open('./static/' + snap['id'] + ".jpeg", "wb")
-                        allsnaps.append({'file':snap['id'] + ".jpeg"})
+                        allsnaps.append({'file':snap['id'] + ".jpeg",'sender':snap['sender']})
                         newFileByteArray = bytearray(media)
                         newFile.write(newFileByteArray)
 
