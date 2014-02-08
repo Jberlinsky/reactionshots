@@ -40,7 +40,11 @@ def send():
 	s.login(data['username'],data['password'])
 
 	snap = request.files['file']
-	snap.save('uploaded_file.jpg')
+        extension = ".jpg"
+        if filetype == 'video':
+                extension = '.mp4'
+        filename = 'uploaded_file' + extension
+	snap.save(filename)
 
 	#upload file to snapchat
 	if (filetype == "image"):
@@ -48,7 +52,7 @@ def send():
 	if (filetype == "video"):
 		snapformat = Snapchat.MEDIA_VIDEO
 
-	media_id = s.upload(snapformat, 'uploaded_file.jpg')
+	media_id = s.upload(snapformat, filename)
 	s.send(media_id, data['recipient'])
 
 	#s.logout()
@@ -82,12 +86,9 @@ def getall():
                                 5: None,
                                 6: None
                         }[reportedMediaType]
-						
-						if fileType == 'image':
-							ext = ".jpeg"
-						if fileType == 'video':	
-							ext = "mp4"
-                        
+                        ext = '.mp4'
+                        if fileType == 'image':
+                                ext = ".jpeg"
                         if fileType == 'image' or fileType == 'video':
                                 allsnaps.append({
                                         'file':snap['id'] + ext,
