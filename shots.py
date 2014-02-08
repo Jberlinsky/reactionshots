@@ -12,6 +12,7 @@ import os
 from flask import *
 import json
 import base64
+from subprocess import call
 #import sys
 #sys.path.append("/snapchat-python/src/")
 from snapchat import Snapchat
@@ -58,7 +59,7 @@ def send(filetype):
 
 	snap = base64.b64decode(request.form['file'])
         app.logger.debug('5')
-        extension = ".jpg"
+        extension = ".png"
         if filetype == 'video':
                 extension = '.mp4'
         filename = 'uploaded_file' + extension
@@ -74,6 +75,9 @@ def send(filetype):
 	#upload file to snapchat
 	if (filetype == "image"):
 		snapformat = Snapchat.MEDIA_IMAGE
+                new_filename = 'uploaded_file.jpg'
+                call(['convert', filename, new_filename])
+                filename = new_filename
 	if (filetype == "video"):
 		snapformat = Snapchat.MEDIA_VIDEO
 
