@@ -52,7 +52,7 @@ def send():
 	s.send(media_id, data['recipient'])
 
 	#s.logout()
-	return {"success":True};
+	return Response(json.dumps({"success":True}), mimetype='text/javascript')
 	
 #getall
 @app.route("/getall", methods=['GET'])
