@@ -48,7 +48,7 @@ def send(filetype):
 	s = Snapchat()
 	s.login(username, password)
 
-        app.logger.debug('Logged in')
+        app.logger.debug(request.files)
 
 	snap = request.files['file']
         extension = ".jpg"
