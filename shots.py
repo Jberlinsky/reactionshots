@@ -75,7 +75,7 @@ def getall():
 		newFileByteArray = bytearray(media)
 		newFile.write(newFileByteArray)
 
-	return json.dumps(allsnaps)
+	return Response(json.dumps(allsnaps), mimetype='text/javascript')
 
 #clear snapchat history
 @app.route("/clear")
