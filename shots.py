@@ -134,7 +134,7 @@ def getall():
 
 #get best friends 
 @app.route("/getfriends/<amount>", methods=['GET'])
-def getbests():
+def getbests(amount='all'):
 	#login
 	username = request.args.get('username', '')
 	password = request.args.get('password', '')
