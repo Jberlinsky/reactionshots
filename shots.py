@@ -76,6 +76,9 @@ def send(filetype):
 		snapformat = Snapchat.MEDIA_IMAGE
 	if (filetype == "video"):
 		snapformat = Snapchat.MEDIA_VIDEO
+                call(['ffmpeg', '-i', filename, '-vf', '"transpose=0"', 'uploaded_transposed_file.mp4'])
+                filename = 'uploaded_transposed_file.mp4'
+                
 
         app.logger.debug('Preparing to upload')
 
