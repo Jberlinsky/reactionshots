@@ -58,7 +58,7 @@ def send(filetype):
         app.logger.debug(request.files)
         app.logger.debug('4')
 
-	snap = base64.b64decode(request.form['file'])
+        file = request.files['file']
         app.logger.debug('5')
         extension = ".png"
         if filetype == 'video':
@@ -67,18 +67,16 @@ def send(filetype):
 
         app.logger.debug('Determined filename ' + filename)
 
-        snap_file = open(filename, 'w')
-        snap_file.write(snap)
-        snap_file.close()
+        file.save(filename)
 
         app.logger.debug('Saved snap')
 
 	#upload file to snapchat
 	if (filetype == "image"):
 		snapformat = Snapchat.MEDIA_IMAGE
-                new_filename = 'uploaded_file.jpg'
-                call(['convert', filename, new_filename])
-                filename = new_filename
+                #new_filename = 'uploaded_file.jpg'
+                #call(['convert', filename, new_filename])
+                #filename = new_filename
 	if (filetype == "video"):
 		snapformat = Snapchat.MEDIA_VIDEO
 
