@@ -33,12 +33,16 @@ def begin():
 	return "don't be lazy man!\n"
 
 #login verification 
-@app.route("/login", methods=['POST', 'GET'])
+@app.route("/login", methods=['POST'])
 def login():
         app.logger.debug('Starting')
 	s = Snapchat()
+        app.logger.debug('Formdata')
+        username = request.form['username']
+        password = request.form['password']
         app.logger.debug('authenticating')
-	s.login(request.form['username'],request.form['password'])
+        app.logger.debug(username + '/' + password)
+	s.login(username, password)
         app.logger.debug('returning')
         return Response(json.dumps({"success":s.logged_in}), mimetype='text/javascript')
 
