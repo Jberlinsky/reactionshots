@@ -15,6 +15,13 @@ from snapchat import Snapchat
 
 #create our little app
 app = Flask(__name__)
+
+import logging
+from logging import StreamHandler
+file_handler = StreamHandler()
+app.logger.setLevel(logging.DEBUG)
+app.logger.addHandler(file_handler)
+
 app.config.from_object(__name__)
 
 @app.route("/")
@@ -39,12 +46,19 @@ def send():
 	s = Snapchat()
 	s.login(data['username'],data['password'])
 
+        app.logger.debug('Logged in')
+
 	snap = request.files['file']
         extension = ".jpg"
         if filetype == 'video':
                 extension = '.mp4'
         filename = 'uploaded_file' + extension
+
+        app.logger.debug('Determined filename ' + filename)
+
 	snap.save(filename)
+
+        app.logger.debug('Saved snap')
 
 	#upload file to snapchat
 	if (filetype == "image"):
@@ -52,8 +66,15 @@ def send():
 	if (filetype == "video"):
 		snapformat = Snapchat.MEDIA_VIDEO
 
+        app.logger.debug('Preparing to upload')
+
 	media_id = s.upload(snapformat, filename)
+
+        app.logger.debug('Notifying recipient')
+
 	s.send(media_id, data['recipient'])
+
+        app.logger.debug('Done!')
 
 	#s.logout()
 	return Response(json.dumps({"success":True}), mimetype='text/javascript')
