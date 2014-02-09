@@ -11,6 +11,7 @@ logger = get_task_logger(__name__)
 @bg.task
 def upload_file(username, password, filename, filetype, recipients):
         logger.debug("GOT HERE")
+        print "ALKSJDLKASJLKD"
         s = Snapchat()
         s.login(username, password)
         logger.debug('Parsing')
@@ -29,5 +30,4 @@ def upload_file(username, password, filename, filetype, recipients):
 
         logger.debug("Notifying")
 
-        s.send(media_id, split(recipients, ','), 5)
-        logger.debug("DONE")
+        return s.send(media_id, split(recipients, ','), 5)
