@@ -60,10 +60,11 @@ def send(filetype):
         if filetype == 'video':
                 extension = '.mp4'
         filename = username + '_' + str(int(time.time())) + extension
+        filepath = '/tmp/' + filename
 
-        file.save('/tmp/' + filename)
+        file.save(filepath)
 
-        upload_file.delay(username, password, filename, filetype, recipient)
+        upload_file.delay(username, password, filepath, filetype, recipient)
 
 	return Response(json.dumps({"success":True}), mimetype='text/javascript')
 	
