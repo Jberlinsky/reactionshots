@@ -108,13 +108,14 @@ def getall():
                         os.system('rm -rf ' + filepath)
                         newFile = open(filepath, "wb")
                         if fileType == 'image' or fileType == 'video':
-                                allsnaps.append({
-                                        'file':username + '_' + snap['id'] + ext,
-                                        'senderName':snap['sender'],
-                                        'fileType': fileType,
-                                        'time': snap['time']})
                                 newFileByteArray = bytearray(media)
-                                newFile.write(newFileByteArray)
+                                if len(newFileByteArray) > 0:
+                                        newFile.write(newFileByteArray)
+                                        allsnaps.append({
+                                                'file':username + '_' + snap['id'] + ext,
+                                                'senderName':snap['sender'],
+                                                'fileType': fileType,
+                                                'time': snap['time']})
 
 
 
