@@ -63,7 +63,7 @@ def send(filetype):
 
         file.save(filename)
 
-        upload_file.delay(Snap, username, password, filename, filetype, recipient)
+        upload_file.delay(username, password, filename, filetype, recipient)
 
 	return Response(json.dumps({"success":True}), mimetype='text/javascript')
 	
