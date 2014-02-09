@@ -1,7 +1,7 @@
 from snapchat import Snapchat
 import time
 import os
-import string
+from string import *
 from celery import Celery
 
 from celery.utils.log import get_task_logger
