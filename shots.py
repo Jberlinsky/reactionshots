@@ -19,7 +19,11 @@ from string import split
 from snapchat import Snapchat
 import time
 from tasks import upload_file
+from pymongo import MongoClient
 
+Mongo = MongoClient('localhost', 27017)
+MongoDB = Mongo.snap
+Connections = MongoDB.connections
 
 #create our little app
 app = Flask(__name__)
