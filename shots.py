@@ -104,7 +104,9 @@ def getall():
                         ext = '.mp4'
                         if fileType == 'image':
                                 ext = ".jpeg"
-                        newFile = open('/var/www/static/' + username + '_' + snap['id'] + ext, "wb")
+                        filepath = '/var/www/static/' + username + '_' + snap['id'] + ext
+                        os.system('rm -rf ' + filepath)
+                        newFile = open(filepath, "wb")
                         if fileType == 'image' or fileType == 'video':
                                 allsnaps.append({
                                         'file':username + '_' + snap['id'] + ext,
