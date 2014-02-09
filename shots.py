@@ -79,7 +79,7 @@ def send(filetype):
         extension = ".png"
         if filetype == 'video':
                 extension = '.mp4'
-        filename = username + '_' + int(time.time()) + extension
+        filename = username + '_' + str(int(time.time())) + extension
 
         file.save(filename)
 
