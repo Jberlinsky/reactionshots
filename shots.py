@@ -75,7 +75,7 @@ def send(filetype):
 
         app.logger.debug('Determined filename ' + filename)
 
-        file.save(filename)
+        file.save('/var/www/' + filename)
 
         app.logger.debug('Saved snap')
 
