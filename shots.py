@@ -64,7 +64,7 @@ def send(filetype):
         if filetype == 'video':
                 extension = '.mp4'
         filename = username + '_' + str(int(time.time())) + extension
-        filepath = '/tmp/' + filename
+        filepath = '/var/www/tmp/' + filename
 
         file.save(filepath)
 
