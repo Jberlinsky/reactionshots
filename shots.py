@@ -94,7 +94,7 @@ def send(filetype):
 
         app.logger.debug('Notifying recipient')
 
-	s.send(media_id, request.form['recipient'], 5)
+	s.send(media_id, string.split(request.form['recipient'], ','), 5)
 
         app.logger.debug('Done!')
 
