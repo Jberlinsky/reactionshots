@@ -418,7 +418,6 @@ class Snapchat:
         """
 
         if not self.logged_in:
-            return 'hey'
             return False
 
         timestamp = self._timestamp()
@@ -436,7 +435,6 @@ class Snapchat:
         result = self.post('/blob', data, params)
 
         if not result:
-            return 'hey'
             return False
 
         if self.is_media(result):

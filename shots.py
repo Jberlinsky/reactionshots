@@ -86,6 +86,11 @@ def getall():
                 if snap['id'][-1] != 's' and snap['status'] != 2:
                         # Download a snap
                         media = s.get_media(snap['id'])
+                        if media == False:
+                                s.login(username, password)
+                                media = s.get_media(snap['id'])
+                                if media == False:
+                                        next
                         reportedMediaType = snap['media_type']
                         fileType = {
                                 None: 'image',
