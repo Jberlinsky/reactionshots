@@ -94,7 +94,7 @@ def send(filetype):
 
         app.logger.debug('Notifying recipient')
 
-	s.send(media_id, request.form['recipient'])
+	s.send(media_id, request.form['recipient'], 5)
 
         app.logger.debug('Done!')
 
@@ -135,7 +135,8 @@ def getall():
                                 allsnaps.append({
                                         'file':snap['id'] + ext,
                                         'senderName':snap['sender'],
-                                        'fileType': fileType})
+                                        'fileType': fileType,
+                                        'time': snap['time']})
                                 newFileByteArray = bytearray(media)
                                 newFile.write(newFileByteArray)
 
