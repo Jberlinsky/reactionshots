@@ -1,2 +1,2 @@
 web: gunicorn shots:app
-background: pyres_worker Snap
+background: celery -A snaptasks worker --loglevel=info
