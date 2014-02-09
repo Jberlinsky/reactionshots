@@ -17,6 +17,10 @@ from string import split
 #import sys
 #sys.path.append("/snapchat-python/src/")
 from snapchat import Snapchat
+import time
+from pyres import ResQ
+
+resque = ResQ()
 
 #create our little app
 app = Flask(__name__)
@@ -36,68 +40,50 @@ def begin():
 #login verification 
 @app.route("/login", methods=['POST'])
 def login():
-        app.logger.debug('Starting')
 	s = Snapchat()
-        app.logger.debug('Formdata')
         username = request.form['username']
         password = request.form['password']
-        app.logger.debug('authenticating')
-        app.logger.debug(username + '/' + password)
 	s.login(username, password)
-        app.logger.debug('returning')
         resp = 'No'
         if s.logged_in:
                 resp = 'Yes'
         return Response(json.dumps([resp]), mimetype='text/javascript')
 
+class SnapContent:
+        @staticmethod
+        def perform(username, password, filename, filetype):
+                s = Snapchat()
+                s.login(username, password)
+                #upload file to snapchat
+                if (filetype == "image"):
+                        snapformat = Snapchat.MEDIA_IMAGE
+                if (filetype == "video"):
+                        snapformat = Snapchat.MEDIA_VIDEO
+                        new_filename = replace(filename, '.mp4', '_transposed.mp4')
+                        os.system('rm -rf ' + new_filename)
+                        os.system('ffmpeg -i ' + filename + ' -vf "transpose=0" ' + new_filename)
+                        filename = new_filename
+
+                media_id = s.upload(snapformat, filename)
+
+                s.send(media_id, split(recipient, ','), 5)
+
 #send a snapchat
 @app.route("/send/<filetype>", methods=['POST'])
 def send(filetype):
-        app.logger.debug('Starting')
         username = request.form['username']
         password = request.form['password']
-        app.logger.warning('2')
-
-	s = Snapchat()
-	s.login(username, password)
-        app.logger.debug('3')
-
-        app.logger.debug(request.form)
-        app.logger.debug(request.files)
-        app.logger.debug('4')
+        recipient = request.form['recipient']
 
         file = request.files['file']
-        app.logger.debug('5')
         extension = ".png"
         if filetype == 'video':
                 extension = '.mp4'
-        filename = 'uploaded_file' + extension
-
-        app.logger.debug('Determined filename ' + filename)
+        filename = username + '_' + int(time.time()) + extension
 
         file.save(filename)
 
-        app.logger.debug('Saved snap')
-
-	#upload file to snapchat
-	if (filetype == "image"):
-		snapformat = Snapchat.MEDIA_IMAGE
-	if (filetype == "video"):
-		snapformat = Snapchat.MEDIA_VIDEO
-                os.system('rm -rf uploaded_transposed_file.mp4')
-                os.system('ffmpeg -i ' + filename + ' -vf "transpose=0" uploaded_transposed_file.mp4')
-                filename = 'uploaded_transposed_file.mp4'
-                
-
-        app.logger.debug('Preparing to upload')
-
-	media_id = s.upload(snapformat, filename)
-
-        app.logger.debug('Notifying recipient')
-
-	s.send(media_id, split(request.form['recipient'], ','), 5)
-
-        app.logger.debug('Done!')
+        resque.enqueue(SnapContent, username, password, filename, filetype)
 
 	return Response(json.dumps({"success":True}), mimetype='text/javascript')
 	
