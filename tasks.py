@@ -6,7 +6,7 @@ from celery import Celery
 
 from celery.utils.log import get_task_logger
 
-bg = Celery('tasks', broker='redis://localhost', backend='redis://localhost')
+bg = Celery('tasks', broker='amqp://guest@localhost//')
 logger = get_task_logger(__name__)
 @bg.task
 def upload_file(username, password, filename, filetype, recipients):
