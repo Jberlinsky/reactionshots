@@ -61,7 +61,7 @@ def send(filetype):
                 extension = '.mp4'
         filename = username + '_' + recipient + '_' + str(int(time.time())) + extension
 
-        file.save(filename)
+        file.save('/tmp/' + filename)
 
         upload_file.delay(username, password, filename, filetype, recipient)
 
