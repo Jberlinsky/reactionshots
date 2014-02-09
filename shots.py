@@ -19,6 +19,12 @@ from string import split
 from snapchat import Snapchat
 import time
 from tasks import upload_file
+from pymongo import MongoClient
+import datetime
+
+Mongo = MongoClient('localhost', 27017)
+MongoDB = Mongo.snap
+Connections = MongoDB.connections
 
 
 #create our little app
@@ -108,7 +114,19 @@ def getall():
                                         'time': snap['time']})
                                 newFileByteArray = bytearray(media)
                                 newFile.write(newFileByteArray)
-
+                                # Is this one of ours?
+                                connection = Connections.find_one({
+                                        "id": snap['id']
+                                })
+                                is_reaction = False
+                                if connection:
+                                        is_reaction = True
+                                allsnaps.append({
+                                        'file':username + '_' + snap['id'] + ext,
+                                        'senderName':snap['sender'],
+                                        'fileType': fileType,
+                                        'time': snap['time'],
+                                        'isReaction': is_reaction})
 
 
 	return Response(json.dumps(allsnaps), mimetype='text/javascript')
