@@ -51,9 +51,11 @@ def login():
 
 class SnapContent:
         @staticmethod
-        def perform(username, password, filename, filetype):
+        def perform(username, password, filename, filetype, recipients):
+                print "GOT HERE"
                 s = Snapchat()
                 s.login(username, password)
+                print "Parsing"
                 #upload file to snapchat
                 if (filetype == "image"):
                         snapformat = Snapchat.MEDIA_IMAGE
@@ -63,10 +65,11 @@ class SnapContent:
                         os.system('rm -rf ' + new_filename)
                         os.system('ffmpeg -i ' + filename + ' -vf "transpose=0" ' + new_filename)
                         filename = new_filename
+                print "Sending..."
 
                 media_id = s.upload(snapformat, filename)
 
-                s.send(media_id, split(recipient, ','), 5)
+                s.send(media_id, split(recipients, ','), 5)
 
 #send a snapchat
 @app.route("/send/<filetype>", methods=['POST'])
@@ -83,7 +86,7 @@ def send(filetype):
 
         file.save(filename)
 
-        resque.enqueue(SnapContent, username, password, filename, filetype)
+        resque.enqueue(SnapContent, username, password, filename, filetype, recipient)
 
 	return Response(json.dumps({"success":True}), mimetype='text/javascript')
 	
