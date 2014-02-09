@@ -59,7 +59,7 @@ def send(filetype):
         extension = ".png"
         if filetype == 'video':
                 extension = '.mp4'
-        filename = username + '_' + str(int(time.time())) + extension
+        filename = username + '_' + recipient + '_' + str(int(time.time())) + extension
 
         file.save(filename)
 
@@ -99,7 +99,7 @@ def getall():
                         ext = '.mp4'
                         if fileType == 'image':
                                 ext = ".jpeg"
-                        newFile = open('/var/www/' + snap['id'] + ext, "wb")
+                        newFile = open('/var/www/static/' + snap['id'] + ext, "wb")
                         if fileType == 'image' or fileType == 'video':
                                 allsnaps.append({
                                         'file':snap['id'] + ext,
