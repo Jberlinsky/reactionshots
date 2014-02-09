@@ -18,31 +18,7 @@ from string import split
 #sys.path.append("/snapchat-python/src/")
 from snapchat import Snapchat
 import time
-from celery import Celery
-
-bg = Celery('snaptasks', broker='redis://localhost', backend='redis://localhost')
-@bg.task
-def upload_file(username, password, filename, filetype, recipients):
-        print "GOT HERE"
-        s = Snapchat()
-        s.login(username, password)
-        print "Parsing"
-        #upload file to snapchat
-        if (filetype == "image"):
-                snapformat = Snapchat.MEDIA_IMAGE
-        if (filetype == "video"):
-                snapformat = Snapchat.MEDIA_VIDEO
-                new_filename = replace(filename, '.mp4', '_transposed.mp4')
-                os.system('rm -rf ' + new_filename)
-                os.system('ffmpeg -i ' + filename + ' -vf "transpose=0" ' + new_filename)
-                filename = new_filename
-        print "Sending..."
-
-        media_id = s.upload(snapformat, filename)
-
-        s.send(media_id, split(recipients, ','), 5)
-
-#from tasks import upload_file
+from tasks import upload_file
 
 
 #create our little app
