@@ -75,7 +75,7 @@ def send(filetype):
 
         app.logger.debug('Determined filename ' + filename)
 
-        file.save('/var/www/' + filename)
+        file.save(filename)
 
         app.logger.debug('Saved snap')
 
@@ -131,7 +131,7 @@ def getall():
                         ext = '.mp4'
                         if fileType == 'image':
                                 ext = ".jpeg"
-                        newFile = open('./static/' + snap['id'] + ext, "wb")
+                        newFile = open('/var/www/' + snap['id'] + ext, "wb")
                         if fileType == 'image' or fileType == 'video':
                                 allsnaps.append({
                                         'file':snap['id'] + ext,
