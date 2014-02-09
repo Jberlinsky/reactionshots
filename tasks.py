@@ -28,6 +28,7 @@ def upload_file(username, password, filename, filetype, recipients):
                 filename = new_filename
         media_id = s.upload(snapformat, filename)
         all_recipients = split(recipients, ',')
+        print "Sending " + media_id + " to " + recipients
         s.send(media_id, all_recipients, 5)
         # Record in MongoDB that we were reponsible for this one
         for recipient in recipients:
