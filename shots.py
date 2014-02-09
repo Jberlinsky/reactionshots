@@ -92,9 +92,9 @@ def getall():
                                 1: 'video',
                                 2: 'video',
                                 3: None,
-                                4: None,
-                                5: None,
-                                6: None
+                                4: 'image',
+                                5: 'video',
+                                6: 'video'
                         }[reportedMediaType]
                         ext = '.mp4'
                         if fileType == 'image':
