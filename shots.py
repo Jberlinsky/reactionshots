@@ -132,7 +132,7 @@ def getall():
                         if fileType == 'image':
                                 ext = ".jpeg"
                         newFile = open('./static/' + snap['id'] + ext, "wb")
-                        if fileType == 'image':# or fileType == 'video':
+                        if fileType == 'image' or fileType == 'video':
                                 allsnaps.append({
                                         'file':snap['id'] + ext,
                                         'senderName':snap['sender'],
