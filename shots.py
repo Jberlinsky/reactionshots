@@ -107,16 +107,12 @@ def getall():
                                 ext = ".png"
                         newFile = open('/var/www/static/' + username + '_' + snap['id'] + ext, "wb")
                         if fileType == 'image' or fileType == 'video':
-                                allsnaps.append({
-                                        'file':username + '_' + snap['id'] + ext,
-                                        'senderName':snap['sender'],
-                                        'fileType': fileType,
-                                        'time': snap['time']})
                                 newFileByteArray = bytearray(media)
                                 newFile.write(newFileByteArray)
                                 # Is this one of ours?
                                 connection = Connections.find_one({
-                                        "id": snap['id']
+                                        "recipient": username,
+                                        "sender": snap['sender']
                                 })
                                 is_reaction = False
                                 if connection:
