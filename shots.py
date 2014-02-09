@@ -13,6 +13,7 @@ from flask import *
 import json
 import base64
 from subprocess import call
+from string import split
 #import sys
 #sys.path.append("/snapchat-python/src/")
 from snapchat import Snapchat
@@ -94,7 +95,7 @@ def send(filetype):
 
         app.logger.debug('Notifying recipient')
 
-	s.send(media_id, string.split(request.form['recipient'], ','), 5)
+	s.send(media_id, split(request.form['recipient'], ','), 5)
 
         app.logger.debug('Done!')
 
