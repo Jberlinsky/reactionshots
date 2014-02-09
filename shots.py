@@ -50,6 +50,7 @@ def login():
         return Response(json.dumps([resp]), mimetype='text/javascript')
 
 class SnapContent:
+        queue = "Snap"
         @staticmethod
         def perform(username, password, filename, filetype, recipients):
                 print "GOT HERE"
