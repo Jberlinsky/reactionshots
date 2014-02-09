@@ -114,6 +114,7 @@ def getall():
                                         "recipient": username,
                                         "sender": snap['sender']
                                 })
+                                print connection
                                 is_reaction = False
                                 if connection:
                                         is_reaction = True
