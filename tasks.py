@@ -1,6 +1,7 @@
 from snapchat import Snapchat
 import time
 import os
+import string
 from celery import Celery
 
 bg = Celery('tasks', broker='redis://localhost', backend='redis://localhost')
