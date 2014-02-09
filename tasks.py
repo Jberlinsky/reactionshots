@@ -4,13 +4,16 @@ import os
 import string
 from celery import Celery
 
+from celery.utils.log import get_task_logger
+
 bg = Celery('tasks', broker='redis://localhost', backend='redis://localhost')
+logger = get_task_logger(__name__)
 @bg.task
 def upload_file(username, password, filename, filetype, recipients):
-        print "GOT HERE"
+        logger.debug("GOT HERE")
         s = Snapchat()
         s.login(username, password)
-        print "Parsing"
+        logger.debug('Parsing')
         #upload file to snapchat
         if (filetype == "image"):
                 snapformat = Snapchat.MEDIA_IMAGE
@@ -20,9 +23,11 @@ def upload_file(username, password, filename, filetype, recipients):
                 os.system('rm -rf ' + new_filename)
                 os.system('ffmpeg -i ' + filename + ' -vf "transpose=0" ' + new_filename)
                 filename = new_filename
-        print "Sending..."
+        logger.debug("Sending...")
 
         media_id = s.upload(snapformat, filename)
 
-        s.send(media_id, split(recipients, ','), 5)
+        logger.debug("Notifying")
 
+        s.send(media_id, split(recipients, ','), 5)
+        logger.debug("DONE")
