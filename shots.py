@@ -59,9 +59,9 @@ def send(filetype):
         extension = ".png"
         if filetype == 'video':
                 extension = '.mp4'
-        filename = username + '_' + recipient + '_' + str(int(time.time())) + extension
+        filename = '/var/www/tmp/' + username + '_' + str(int(time.time())) + extension
 
-        file.save('/tmp/' + filename)
+        file.save(filename)
 
         upload_file.delay(username, password, filename, filetype, recipient)
 
@@ -98,7 +98,7 @@ def getall():
                         }[reportedMediaType]
                         ext = '.mp4'
                         if fileType == 'image':
-                                ext = ".jpeg"
+                                ext = ".png"
                         newFile = open('/var/www/static/' + username + '_' + snap['id'] + ext, "wb")
                         if fileType == 'image' or fileType == 'video':
                                 allsnaps.append({

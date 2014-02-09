@@ -21,5 +21,6 @@ def upload_file(username, password, filename, filetype, recipients):
                 os.system('rm -rf ' + new_filename)
                 os.system('ffmpeg -i ' + filename + ' -vf "transpose=0" ' + new_filename)
                 filename = new_filename
+        print "Uploading " + filename
         media_id = s.upload(snapformat, filename)
         return s.send(media_id, split(recipients, ','), 5)
