@@ -111,8 +111,7 @@ def getall():
                                 newFile.write(newFileByteArray)
                                 # Is this one of ours?
                                 connection = Connections.find_one({
-                                        "recipient": username,
-                                        "sender": snap['sender']
+                                        "recipient": username
                                 })
                                 print connection
                                 is_reaction = False
