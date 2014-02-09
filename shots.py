@@ -129,9 +129,9 @@ def getall():
                                 6: None
                         }[reportedMediaType]
                         ext = '.mp4'
-                        newFile = open('./static/' + snap['id'] + ext, "wb")
                         if fileType == 'image':
                                 ext = ".jpeg"
+                        newFile = open('./static/' + snap['id'] + ext, "wb")
                         if fileType == 'image' or fileType == 'video':
                                 allsnaps.append({
                                         'file':snap['id'] + ext,
