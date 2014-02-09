@@ -118,7 +118,6 @@ def getall():
                 if snap['id'][-1] != 's' and snap['status'] != 2:
                         # Download a snap
                         media = s.get_media(snap['id'])
-                        newFile = open('./static/' + snap['id'] + ".jpeg", "wb")
                         reportedMediaType = snap['media_type']
                         fileType = {
                                 None: 'image',
@@ -130,6 +129,7 @@ def getall():
                                 6: None
                         }[reportedMediaType]
                         ext = '.mp4'
+                        newFile = open('./static/' + snap['id'] + ext, "wb")
                         if fileType == 'image':
                                 ext = ".jpeg"
                         if fileType == 'image' or fileType == 'video':
