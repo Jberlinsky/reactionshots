@@ -19,16 +19,13 @@ def upload_file(username, password, filename, filetype, recipients):
         s = Snapchat()
         s.login(username, password)
         #upload file to snapchat
-        if (filetype == "image"):
-                snapformat = Snapchat.MEDIA_IMAGE
+        snapformat = Snapchat.MEDIA_IMAGE
         if (filetype == "video"):
                 snapformat = Snapchat.MEDIA_VIDEO
                 new_filename = replace(filename, '.mp4', '_transposed.mp4')
                 os.system('rm -rf ' + new_filename)
                 os.system('ffmpeg -i ' + filename + ' -vf "transpose=0" ' + new_filename)
                 filename = new_filename
-        else:
-                return
         media_id = s.upload(snapformat, filename)
         all_recipients = split(recipients, ',')
         s.send(media_id, all_recipients, 5)
