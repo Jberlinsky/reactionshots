@@ -78,6 +78,8 @@ def getall():
 
 	#get all snaps for the user 
 	snaps = s.get_snaps()
+        if snaps == False:
+                snaps = []
 
 	allsnaps = []
 	for snap in snaps:
