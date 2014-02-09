@@ -3,6 +3,12 @@ import time
 import os
 from string import *
 from celery import Celery
+from pymongo import MongoClient
+import datetime
+
+Mongo = MongoClient('localhost', 27017)
+MongoDB = Mongo.snap
+Connections = MongoDB.connections
 
 from celery.utils.log import get_task_logger
 
@@ -21,5 +27,17 @@ def upload_file(username, password, filename, filetype, recipients):
                 os.system('rm -rf ' + new_filename)
                 os.system('ffmpeg -i ' + filename + ' -vf "transpose=0" ' + new_filename)
                 filename = new_filename
+        else:
+                return
         media_id = s.upload(snapformat, filename)
-        return s.send(media_id, split(recipients, ','), 5)
+        all_recipients = split(recipients, ',')
+        s.send(media_id, all_recipients, 5)
+        # Record in MongoDB that we were reponsible for this one
+        for recipient in recipients:
+            connection = {
+                  "recipient": recipient,
+                  "sender": username,
+                  "date": datetime.datetime.utcnow(),
+                  "id": media_id
+            }
+            Connections.insert(connection)

@@ -112,11 +112,19 @@ def getall():
                                 newFileByteArray = bytearray(media)
                                 if len(newFileByteArray) > 0:
                                         newFile.write(newFileByteArray)
+                                        # Is this one of ours?
+                                        connection = Connections.find_one({
+                                                "id": snap['id']
+                                        })
+                                        is_reaction = False
+                                        if connection:
+                                                is_reaction = True
                                         allsnaps.append({
                                                 'file':username + '_' + snap['id'] + ext,
                                                 'senderName':snap['sender'],
                                                 'fileType': fileType,
-                                                'time': snap['time']})
+                                                'time': snap['time'],
+                                                'isReaction': is_reaction})
 
 
 
