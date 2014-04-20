@@ -4,7 +4,7 @@ upstream flask {
 
 server {
   listen 127.0.0.1;
-  server_name shotzapp.com;
+  server_name shotzapp.com ops.jasonberlinsky.com;
   charset utf-8;
 
   location / {

@@ -1,0 +1,21 @@
+{
+  "run_list": [ "main::default", "main::python", "main::shotz", "main::nginx", "main::munin", "main::security"],
+  "base_packages": ["git-core", "bash-completion", "nmap", "telnet"],
+  "ubuntu_python_packages": ["python-setuptools", "python-pip", "python-dev", "libpq-dev"],
+  "pip_python_packages": {"virtualenv": "1.11.4"},
+
+  "users": {
+    "shotz": {
+      "id": 1011,
+      "full_name": "Shotz User",
+      "key": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCpJ4PMTzM34eavYl86Jtm7Cp7+3k72vQum4FZO4F/iO0cC5GXKuIECU3t5bG0+bL99lTz7Evn51DSAWwJwDY0pLoUhYR/qRwKgh7xYsqAHypj0lEtvrigNPIq8RWSAayQkfGUaojc77usxl+7ntiLBnOlHPgH6TcyuhIVBbsLlmwiFgneHm8fgAABSDHfJkM8fBIljXXIfmvPLYnFbE36WHPzFpDc92fKettPzocE8Ez/JrtbfaHsctDiYcMtPPopBsq3maQ/haB9DAnzLInDje6fONR/LdEsfT10NK3rkoT2nqgmyTEKlh9+u/fiaJZ9osSe8gAQKnCdnmBKGLwLd jasonberlinsky@Jasons-MacBook-Pro.local"
+    }
+  },
+
+  "groups": {
+    "shotz": {
+      "gid": 201,
+      "members": ["shotz"]
+    }
+  }
+}

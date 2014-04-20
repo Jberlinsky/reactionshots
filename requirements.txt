@@ -25,3 +25,6 @@ setproctitle==1.1.8
 simplejson==3.3.2
 tornado==3.2
 wsgiref==0.1.2
+zencoder
+pymongo
+fabric
