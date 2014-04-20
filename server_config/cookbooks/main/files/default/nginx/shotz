@@ -19,3 +19,12 @@ server {
     root /var/www/html/static;
   }
 }
+
+server {
+  server_name ops.jasonberlinsky.com;
+  access_log /var/log/nginx/shotz-media.log;
+
+  location /static/ {
+    root /var/www/html/static;
+  }
+}
